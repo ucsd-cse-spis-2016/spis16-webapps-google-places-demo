@@ -4,6 +4,11 @@ from flask import render_template, flash, Markup
 
 from github import Github
 
+from googleplaces import GooglePlaces, types, lang
+
+# The next line is our own library
+from googlePlacesFuncs import doQuery
+
 import pprint
 import os
 import sys
@@ -15,12 +20,14 @@ class GithubOAuthVarsNotDefined(Exception):
 if os.getenv('GITHUB_CLIENT_ID') == None or \
         os.getenv('GITHUB_CLIENT_SECRET') == None or \
         os.getenv('APP_SECRET_KEY') == None or \
+        os.getenv('GOOGLE_PLACES_API_KEY') == None or \
         os.getenv('GITHUB_ORG') == None:
     raise GithubOAuthVarsNotDefined('''
       Please define environment variables:
          GITHUB_CLIENT_ID
          GITHUB_CLIENT_SECRET
          GITHUB_ORG
+         GOOGLE_PLACES_API_KEY
          APP_SECRET_KEY
       ''')
 
@@ -30,6 +37,9 @@ app.debug = True
 
 app.secret_key = os.environ['APP_SECRET_KEY']
 oauth = OAuth(app)
+
+google_places = GooglePlaces(os.environ['GOOGLE_PLACES_API_KEY'])
+
 
 # This code originally from https://github.com/lepture/flask-oauthlib/blob/master/example/github.py
 # Edited by P. Conrad for SPIS 2016 to add getting Client Id and Secret from
@@ -139,6 +149,8 @@ def renderPage1():
 
 @app.route('/page2')
 def renderPage2():
+    # Try getting some data from Google Places
+    doQuery(google_places)    
     return render_template('page2.html')
 
 
