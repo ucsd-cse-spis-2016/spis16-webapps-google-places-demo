@@ -150,8 +150,21 @@ def renderPage1():
 @app.route('/page2')
 def renderPage2():
     # Try getting some data from Google Places
-    doQuery(google_places)    
     return render_template('page2.html')
+
+@app.route('/page2_result')
+def renderPage2Result():
+    # Try getting some data from Google Places
+
+    googlePlacesResult = doQuery(google_places,
+            request.args['location'],
+            request.args['keyword'],
+            request.args['radius'],
+            types=[types.TYPE_FOOD])
+
+    return render_template('page2_result.html',
+                           googlePlacesData=googlePlacesResult)
+
 
 
 @github.tokengetter

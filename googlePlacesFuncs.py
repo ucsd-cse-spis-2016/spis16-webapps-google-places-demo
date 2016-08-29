@@ -1,7 +1,15 @@
 from googleplaces import GooglePlaces, types, lang
 
 
-def doQuery(google_places):
+def doQuery(google_places, location, keyword, radius, types):
+
+    query_result = google_places.nearby_search(
+        location=location, keyword=keyword,
+        radius=radius,types=types)
+
+    return query_result
+
+def doHardCodedQuery(google_places):
 
     query_result = google_places.nearby_search(
         location='London, England', keyword='Fish and Chips',

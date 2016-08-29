@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}page1{% endblock %}
+
+{% block content %}
+  <h1>This is the results for Page 2</h1>
+
+
+<ul>
+{% for place in googlePlacesData.places  %}
+
+<li>{{place.name}}, {{ place.geo_location }}, {{place.place_id }}</li>
+
+{% endfor %}
+</ul>
+
+
+{% endblock %}

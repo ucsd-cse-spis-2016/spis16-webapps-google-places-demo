@@ -5,6 +5,15 @@
 {% block content %}
   <h1>This is Page 2</h1>
 
-<p>Lorem ipsum Tritons rule!</p>
+<p>Trying out the Google Places API:</p>
+
+
+<form action="/page2_result">
+  Google Places API:<br>
+  <input type="text" name="location" value="San Diego">
+  <input type="text" name="keyword" value="Pizza">
+  <input type="text" name="radius" value="20">
+  <input type="submit" value="Submit">
+</form>
 
 {% endblock %}
