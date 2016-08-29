@@ -56,9 +56,16 @@ $
 
 This keeps the key value out of the Python code that gets committed into github.   Note that `env.sh` appears in the `.gitignore` for this repo, so it NOT committed to github~
 
-# Add the import to the Python code where you are using the Google Places API:
+# Preliminaries
+
+Add the import to the Python code where you are using the Google Places API:
 
 ```python
 from googleplaces import GooglePlaces, types, lang
 ```
 
+Add this line of code to your file.  If its a Flask webapp, put this after the `app = Flask(__name__)` line.
+
+```python
+google_places = GooglePlaces(os.environ['GOOGLE_PLACES_API_KEY'])
+```
